@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -13,6 +16,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
 
   String? _name, _email, _password;
+  File? _image;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +35,7 @@ class _RegisterPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _titleWidget(),
+                _profileImageWidget(),
                 _registrationnForm(),
                 _registerButton(),
               ],
@@ -51,7 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _registrationnForm() {
     return Container(
-      height: _deviceHeight! * 0.25,
+      height: _deviceHeight! * 0.35,
       child: Form(
         key: _registerFormKey,
         child: Column(
@@ -63,6 +68,31 @@ class _RegisterPageState extends State<RegisterPage> {
             _emailTextField(),
             _passwordTextField(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _profileImageWidget() {
+    var _imageProvider = _image != null
+        ? FileImage(_image!)
+        : const NetworkImage("https://i.pravatar.cc/300");
+    return GestureDetector(
+      onTap: () {
+        FilePicker.platform.pickFiles(type: FileType.image).then((_result) {
+          setState(() {
+            _image = File(_result!.files.first.path!);
+          });
+        });
+      },
+      child: Container(
+        height: _deviceHeight! * 0.20,
+        width: _deviceWidth! * 0.20,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: _imageProvider as ImageProvider,
+          ),
         ),
       ),
     );
