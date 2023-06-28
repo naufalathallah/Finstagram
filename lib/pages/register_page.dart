@@ -10,6 +10,10 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   double? _deviceHeight, _deviceWidth;
 
+  final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
+
+  String? _name, _email, _password;
+
   @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
@@ -27,6 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _titleWidget(),
+                _registrationnForm(),
                 _registerButton(),
               ],
             ),
@@ -41,6 +46,70 @@ class _RegisterPageState extends State<RegisterPage> {
       "Finstagram",
       style: TextStyle(
           color: Colors.black, fontSize: 25, fontWeight: FontWeight.w600),
+    );
+  }
+
+  Widget _registrationnForm() {
+    return Container(
+      height: _deviceHeight! * 0.25,
+      child: Form(
+        key: _registerFormKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _nameTextField(),
+            _emailTextField(),
+            _passwordTextField(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _nameTextField() {
+    return TextFormField(
+      decoration: const InputDecoration(hintText: "Name..."),
+      onSaved: (_value) {
+        setState(() {
+          _name = _value;
+        });
+      },
+      validator: (_value) => _value!.length > 0 ? null : "Please enter a name.",
+    );
+  }
+
+  Widget _emailTextField() {
+    return TextFormField(
+      decoration: const InputDecoration(hintText: "Email..."),
+      onSaved: (_value) {
+        setState(() {
+          _email = _value;
+        });
+      },
+      validator: (_value) {
+        bool _result = _value!.contains(
+          RegExp(
+              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"),
+        );
+        return _result ? null : "Please enter a valid email";
+      },
+    );
+  }
+
+  Widget _passwordTextField() {
+    return TextFormField(
+      obscureText: true,
+      decoration: const InputDecoration(hintText: "Password..."),
+      onSaved: (_value) {
+        setState(() {
+          _password = _value;
+        });
+      },
+      validator: (_value) => _value!.length > 6
+          ? null
+          : "Please enter a password greater than 6 characters.",
     );
   }
 
