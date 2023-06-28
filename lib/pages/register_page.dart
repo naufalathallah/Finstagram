@@ -29,16 +29,18 @@ class _RegisterPageState extends State<RegisterPage> {
             horizontal: _deviceWidth! * 0.05,
           ),
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _titleWidget(),
-                _profileImageWidget(),
-                _registrationnForm(),
-                _registerButton(),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _titleWidget(),
+                  _profileImageWidget(),
+                  _registrationnForm(),
+                  _registerButton(),
+                ],
+              ),
             ),
           ),
         ),
@@ -56,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _registrationnForm() {
     return Container(
-      height: _deviceHeight! * 0.35,
+      height: _deviceHeight! * 0.40,
       child: Form(
         key: _registerFormKey,
         child: Column(
@@ -145,9 +147,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
   Widget _registerButton() {
     return MaterialButton(
-      onPressed: () {},
-      minWidth: _deviceWidth! * 0.70,
-      height: _deviceHeight! * 0.06,
+      onPressed: _registerUser,
+      minWidth: _deviceWidth! * 0.50,
+      height: _deviceHeight! * 0.05,
       color: Colors.blue,
       child: const Text(
         "Register",
@@ -158,5 +160,12 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+
+  void _registerUser() {
+    if (_registerFormKey.currentState!.validate() && _image != null) {
+      _registerFormKey.currentState!.save();
+      print("valid");
+    }
   }
 }
