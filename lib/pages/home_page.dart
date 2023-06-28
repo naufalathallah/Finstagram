@@ -8,6 +8,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _currentPage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +34,27 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
+      bottomNavigationBar: _bottomNavigationBar(),
     );
+  }
+
+  Widget _bottomNavigationBar() {
+    return BottomNavigationBar(
+        currentIndex: _currentPage,
+        onTap: (_index) {
+          setState(() {
+            _currentPage = _index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            label: 'Feed',
+            icon: Icon(Icons.feed),
+          ),
+          BottomNavigationBarItem(
+            label: 'Profile',
+            icon: Icon(Icons.account_box),
+          ),
+        ]);
   }
 }
