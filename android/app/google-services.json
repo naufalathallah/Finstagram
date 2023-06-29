@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "262095672739",
+    "project_id": "finstagram-naufal",
+    "storage_bucket": "finstagram-naufal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262095672739:android:57989ad4a7ded2b90e7616",
+        "android_client_info": {
+          "package_name": "com.example.finstagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262095672739-l1hm7e0g6au2geugcp6pncio3hhucs6p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfE6bnj3oS34m_ruMgTipL2-_SoIMxiLU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262095672739-l1hm7e0g6au2geugcp6pncio3hhucs6p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
