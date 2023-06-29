@@ -1,4 +1,6 @@
+import 'package:finstagram/services/firebase_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,10 +12,17 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   double? _deviceHeight, _deviceWidth;
 
+  FirebaseService? _firebaseService;
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
 
   String? _email;
   String? _password;
+
+  @override
+  void initState() {
+    super.initState();
+    _firebaseService = GetIt.instance.get<FirebaseService>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +105,9 @@ class _LoginPageState extends State<LoginPage> {
           _password = _value;
         });
       },
-      validator: (_value) => _value!.length > 6
+      validator: (_value) => _value!.length > 5
           ? null
-          : "Please enter a password greater than 6 characters.",
+          : "Please enter a password greater than 5 characters.",
     );
   }
 
@@ -130,9 +139,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _loginUser() {
+  void _loginUser() async {
     if (_loginFormKey.currentState!.validate()) {
       _loginFormKey.currentState!.save();
+      bool _result = await _firebaseService!.loginUser(
+        email: _email!,
+        password: _password!,
+      );
+      if (_result) Navigator.popAndPushNamed(context, 'home');
     }
   }
 }
