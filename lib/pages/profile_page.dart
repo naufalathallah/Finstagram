@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finstagram/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -32,7 +33,10 @@ class _ProfilePageState extends State<ProfilePage> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [_profileImage()]),
+          children: [
+            _profileImage(),
+            _postsGridView(),
+          ]),
     );
   }
 
@@ -53,5 +57,41 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+  }
+
+  Widget _postsGridView() {
+    return Expanded(
+        child: StreamBuilder<QuerySnapshot>(
+      stream: _firebaseService!.getPostsForUser(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          List _posts = snapshot.data!.docs.map((e) => e.data()).toList();
+          return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 2,
+                crossAxisSpacing: 2,
+              ),
+              itemCount: _posts.length,
+              itemBuilder: (context, index) {
+                Map _post = _posts[index];
+                return Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(_post["image"]),
+                    ),
+                  ),
+                );
+              });
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.red,
+            ),
+          );
+        }
+      },
+    ));
   }
 }
