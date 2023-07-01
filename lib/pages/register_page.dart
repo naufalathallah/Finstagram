@@ -180,7 +180,7 @@ class _RegisterPageState extends State<RegisterPage> {
         if (_result) Navigator.popAndPushNamed(context, 'login');
       }
     } catch (e) {
-      print('*************************  $e');
+      print(e);
     }
   }
 }
