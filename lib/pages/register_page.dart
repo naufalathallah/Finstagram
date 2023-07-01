@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:finstagram/services/firebase_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -13,10 +15,17 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   double? _deviceHeight, _deviceWidth;
 
+  FirebaseService? _firebaseService;
   final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
 
   String? _name, _email, _password;
   File? _image;
+
+  @override
+  void initState() {
+    super.initState();
+    _firebaseService = GetIt.instance.get<FirebaseService>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,9 +148,9 @@ class _RegisterPageState extends State<RegisterPage> {
           _password = _value;
         });
       },
-      validator: (_value) => _value!.length > 6
+      validator: (_value) => _value!.length > 5
           ? null
-          : "Please enter a password greater than 6 characters.",
+          : "Please enter a password greater than 5 characters.",
     );
   }
 
@@ -162,10 +171,16 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  void _registerUser() {
-    if (_registerFormKey.currentState!.validate() && _image != null) {
-      _registerFormKey.currentState!.save();
-      print("valid");
+  void _registerUser() async {
+    try {
+      if (_registerFormKey.currentState!.validate() && _image != null) {
+        _registerFormKey.currentState!.save();
+        bool _result = await _firebaseService!.registerUser(
+            name: _name!, email: _email!, password: _password!, image: _image!);
+        if (_result) Navigator.popAndPushNamed(context, 'login');
+      }
+    } catch (e) {
+      print('*************************  $e');
     }
   }
 }
