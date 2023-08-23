@@ -24,7 +24,7 @@ Before you begin, ensure you have:
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/naufalathallah/finstagram.git
+   git clone https://github.com/naufalathallah/Finstagram.git
    ```
 
 2. Navigate to the project directory:
