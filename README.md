@@ -1,16 +1,64 @@
-# finstagram
+# Finstagram 📸
 
-A new Flutter project.
+Finstagram is a social media app inspired by Instagram. This project is built using Flutter for the frontend and Firebase for the backend.
 
-## Getting Started
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=flat&logo=Flutter&logoColor=white)
+![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=flat&logo=firebase)
+![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=flat&logo=dart&logoColor=white)
 
-This project is a starting point for a Flutter application.
+## Features
 
-A few resources to get you started if this is your first Flutter project:
+- [x] User Registration and Authentication
+- [x] Photo Uploads
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Prerequisites
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Before you begin, ensure you have:
+
+- Flutter SDK installed
+- Firebase project setup
+- Android Studio/Xcode for the emulator or a physical device
+
+## Installation
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/naufalathallah/finstagram.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd finstagram
+   ```
+
+3. Install the dependencies:
+
+   ```bash
+   flutter pub get
+   ```
+
+4. Run the app:
+
+   ```bash
+   flutter run
+   ```
+
+## Firebase Setup
+
+To link with Firebase, you'll need to add the `google-services.json` file (for Android) and `GoogleService-Info.plist` (for iOS) to their respective directories.
+
+See the [Firebase documentation](https://firebase.flutter.dev/docs/overview) for more detailed steps.
+
+## Support
+
+If you encounter any issues or have questions, please create a [new Issue](https://github.com/yourusername/finstagram/issues).
+
+## Contributing
+
+Contributions are welcome! See the [Issues](https://github.com/yourusername/finstagram/issues) for a list of features that are desired or bugs that need fixing.
+
+## License
+
+Finstagram is licensed under the [MIT License](LICENSE).
